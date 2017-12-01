@@ -1,0 +1,57 @@
+FROM laradock/php-fpm:1.4-71
+
+LABEL maintainer="Harvey Chow <harvey@hcdesigns.nl>"
+
+#####################################
+# SOAP:
+#####################################
+
+RUN apt-get update -yqq && \
+    apt-get -y install libxml2-dev php-soap && \
+    docker-php-ext-install soap
+
+#####################################
+# xDebug:
+#####################################
+
+RUN pecl install xdebug && \
+    docker-php-ext-enable xdebug
+
+COPY ./xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
+
+#####################################
+# Opcache:
+#####################################
+
+RUN docker-php-ext-install opcache
+COPY ./opcache.ini /usr/local/etc/php/conf.d/opcache.ini
+
+#####################################
+# Mysqli Modifications:
+#####################################
+
+RUN docker-php-ext-install mysqli
+
+#####################################
+# PHP REDIS EXTENSION FOR PHP 5
+#####################################
+
+RUN pecl install -o -f redis \
+    &&  rm -rf /tmp/pear \
+    &&  docker-php-ext-enable redis
+
+#####################################
+# Human Language and Character Encoding Support:
+#####################################
+
+RUN apt-get update -yqq && \
+    apt-get install -y zlib1g-dev libicu-dev g++ && \
+    docker-php-ext-configure intl && \
+    docker-php-ext-install intl \
+
+RUN usermod -u 1000 www-data
+
+WORKDIR /var/www
+
+EXPOSE 9000
+CMD ["php-fpm"]
