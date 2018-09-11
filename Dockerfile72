@@ -1,4 +1,4 @@
-FROM laradock/php-fpm:1.4-70
+FROM laradock/php-fpm:2.0-72
 
 LABEL maintainer="Harvey Chow <harvey@hcdesigns.nl>"
 
