@@ -7,9 +7,9 @@ LABEL maintainer="Harvey Chow <harvey@hcdesigns.nl>"
 #####################################
 
 RUN apt-get update -yqq && \
-    apt-get -y install libxml2-dev php-soap && \
+    apt-get -y install libxml2-dev libxslt-dev php-soap && \
     docker-php-ext-install soap && \
-    docker-php-ext-install xls
+    docker-php-ext-install xsl
 
 #####################################
 # xDebug:
