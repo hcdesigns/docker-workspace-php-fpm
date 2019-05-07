@@ -63,12 +63,12 @@ RUN apt-get update -yqq && \
     docker-php-ext-install soap
 
 #####################################
-# xDebug:
+# xDebug: (BROKEN SINCE UPDATE FROM CONTAINER)
 #####################################
 
-RUN apt-get install -y php5-xdebug && \
-    echo "zend_extension=/usr/lib/php5/20131226/xdebug.so" > /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
-COPY ./xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
+# RUN apt-get install -y php5-xdebug && \
+#     echo "zend_extension=/usr/lib/php5/20131226/xdebug.so" > /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+# COPY ./xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
 
 #####################################
 # Opcache:
